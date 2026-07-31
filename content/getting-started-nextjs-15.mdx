@@ -1,0 +1,80 @@
+---
+title: "Getting Started with Next.js 15 and the App Router"
+publishedAt: "2026-02-01"
+summary: "A practical guide to building modern web applications with Next.js 15, the App Router, Server Components, and edge runtime."
+tags: ["nextjs", "react", "tutorial"]
+---
+
+Next.js 15 introduces significant improvements to the App Router, making it easier than ever to build fast, SEO-friendly web applications. This guide walks through the key concepts.
+
+## Server Components by Default
+
+In the App Router, every component is a Server Component unless you explicitly mark it with `'use client'`. This means:
+
+- Less JavaScript shipped to the client
+- Direct access to backend resources
+- Better SEO out of the box
+
+```tsx
+// This runs on the server — no client JS needed
+export default async function BlogPage() {
+  const posts = await getBlogPosts();
+  return (
+    <div>
+      {posts.map(post => (
+        <article key={post.slug}>{post.metadata.title}</article>
+      ))}
+    </div>
+  );
+}
+```
+
+## Metadata API
+
+The App Router includes a powerful metadata API for SEO:
+
+```tsx
+export const metadata: Metadata = {
+  title: {
+    default: "Your Name",
+    template: `%s | Your Name`,
+  },
+  description: "Your description",
+  openGraph: {
+    title: "Your Name",
+    type: "website",
+  },
+};
+```
+
+## Dynamic OG Images
+
+Next.js 15 makes it trivial to generate dynamic OpenGraph images:
+
+```tsx
+export async function GET(request: NextRequest) {
+  const title = new URL(request.url).searchParams.get('title');
+  return new ImageResponse(
+    <div style={{ display: 'flex' }}>{title}</div>,
+    { width: 1200, height: 630 }
+  );
+}
+```
+
+## Edge Runtime
+
+For maximum performance, you can opt into the edge runtime:
+
+```tsx
+export const runtime = 'edge';
+```
+
+This runs your code closer to users with sub-50ms response times globally.
+
+## Conclusion
+
+The App Router in Next.js 15 is a significant step forward. Combined with React 19 and TypeScript, it provides the best developer experience for building modern web applications.
+
+---
+
+*This template uses Next.js 15 with the App Router. Built by [Mynd Labs](https://myndlabs.tech).*

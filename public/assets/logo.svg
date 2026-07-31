@@ -1,0 +1,21 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Mynd Labs Logo — Minimal Geometric Mark -->
+  <!-- A geometric "M" monogram with neural node accent -->
+  
+  <!-- Outer rounded square container -->
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="currentColor" opacity="0.04"/>
+  
+  <!-- Geometric M shape — formed by two peaks -->
+  <path 
+    d="M128 352 L128 176 L176 176 L256 272 L336 176 L384 176 L384 352 L344 352 L344 240 L276 320 L236 320 L168 240 L168 352 Z" 
+    fill="currentColor"
+  />
+  
+  <!-- Neural node accent — top center spark -->
+  <circle cx="256" cy="112" r="20" fill="currentColor" opacity="0.9"/>
+  <circle cx="256" cy="112" r="36" fill="none" stroke="currentColor" stroke-width="3" opacity="0.3"/>
+  
+  <!-- Connecting lines from node to M peaks -->
+  <line x1="256" y1="132" x2="176" y2="176" stroke="currentColor" stroke-width="2.5" opacity="0.25"/>
+  <line x1="256" y1="132" x2="336" y2="176" stroke="currentColor" stroke-width="2.5" opacity="0.25"/>
+</svg>

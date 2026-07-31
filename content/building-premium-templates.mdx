@@ -1,0 +1,62 @@
+---
+title: "Building Premium Developer Templates"
+publishedAt: "2026-01-15"
+summary: "Why premium templates matter, the philosophy behind dev-portfolio-template, and how to build starter templates that developers actually want to use."
+tags: ["templates", "design", "developer-experience"]
+---
+
+When I started Mynd Labs, I had one goal: build developer tools that feel premium. Not just functional — premium. The kind of experience where you fork the repo and immediately think, "this is mine now."
+
+## The Problem with Most Templates
+
+Most developer templates fall into one of two camps:
+
+1. **Too bare** — a skeleton with no personality. You spend more time styling than building.
+2. **Too opinionated** — someone's personal portfolio with their name hardcoded into 47 files.
+
+Neither serves the developer who wants to ship fast without sacrificing quality.
+
+## What Makes a Template Premium
+
+A premium template should feel like a product, not a starting point. Here's what that means:
+
+- **Design system consistency** — spacing, typography, and color tokens that work together harmoniously
+- **Accessibility by default** — keyboard navigation, focus states, reduced motion support
+- **Performance baked in** — image optimization, code splitting, and lazy loading out of the box
+- **Customizable without refactoring** — a single data file drives all content
+- **Production-ready SEO** — sitemaps, OpenGraph, structured data, and RSS feeds
+
+## The dev-portfolio-template Philosophy
+
+This template is built around a single principle: **edit one file, change everything.**
+
+All content lives in `src/data/resume.tsx`. Update your name, projects, work history, and social links in one place. The entire site updates automatically.
+
+```typescript
+export const DATA = {
+  name: "Your Name",
+  description: "Your description here",
+  // ... everything else
+} as const;
+```
+
+## What's Included
+
+- Home page with hero, skills, projects, work experience, and contact sections
+- Blog with MDX support and syntax highlighting
+- Projects showcase with animated cards
+- Uses page for hardware and software
+- Interactive CLI mode
+- Command palette (Cmd+K)
+- Dark/light/system theme support
+- Sound effects (optional)
+- Smooth scrolling and cursor effects
+- Full SEO suite
+
+## Built by Mynd Labs
+
+This template is maintained by [Mynd Labs](https://myndlabs.tech). We build premium developer tools and templates that help creators launch faster.
+
+---
+
+*Template by [Mynd Labs](https://myndlabs.tech) — fork it, ship it, make it yours.*

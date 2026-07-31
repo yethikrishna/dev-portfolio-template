@@ -1,0 +1,328 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@layer base {
+    :root {
+      --background: 0 0% 100%;
+      --foreground: 210 11.1% 3.53%;
+
+      --card: 0 0% 100%;
+      --card-foreground: 210 11.1% 3.53%;
+
+      --popover: 0 0% 100%;
+      --popover-foreground: 210 11.1% 3.53%;
+
+      --primary: 0 0% 9%;
+      --primary-foreground: 0 0% 98%;
+
+      --secondary: 0 0% 96.1%;
+      --secondary-foreground: 0 0% 9%;
+
+      --muted: 0 0% 96.1%;
+      --muted-foreground: 0 0% 45.1%;
+
+      --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+
+      --destructive: 0 84.2% 60.2%;
+      --destructive-foreground: 0 0% 98%;
+
+      --border: 0 0% 89.8%;
+      --input: 0 0% 89.8%;
+      --ring: 0 0% 3.9%;
+
+      --radius: 0.5rem;
+
+      --color-1: 0 100% 63%;
+
+      --color-2: 270 100% 63%;
+
+      --color-3: 210 100% 63%;
+
+      --color-4: 195 100% 63%;
+
+      --color-5: 90 100% 63%;
+    }
+
+    .dark {
+      --background: 210 11.1% 3.53%;
+      --foreground: 0 0% 98%;
+
+      --card: 210 11.1% 3.53%;
+      --card-foreground: 0 0% 98%;
+
+      --popover: 210 11.1% 3.53%;
+      --popover-foreground: 0 0% 98%;
+
+      --primary: 0 0% 98%;
+      --primary-foreground: 0 0% 9%;
+
+      --secondary: 0 0% 14.9%;
+      --secondary-foreground: 0 0% 98%;
+
+      --muted: 0 0% 14.9%;
+      --muted-foreground: 0 0% 63.9%;
+
+      --accent: 0 0% 14.9%;
+      --accent-foreground: 0 0% 98%;
+
+      --destructive: 0 62.8% 30.6%;
+      --destructive-foreground: 0 0% 98%;
+
+      --border: 0 0% 14.9%;
+      --input: 0 0% 14.9%;
+      --ring: 0 0% 83.1%;
+      --color-1: 0 100% 63%;
+      --color-2: 270 100% 63%;
+      --color-3: 210 100% 63%;
+      --color-4: 195 100% 63%;
+      --color-5: 90 100% 63%;
+    }
+  }
+
+  @layer base {
+    * {
+      @apply border-border;
+    }
+    body {
+      @apply bg-background text-foreground;
+    }
+  }
+
+  h3 code {
+    @apply !text-lg md:!text-xl;
+  }
+  
+  pre {
+    @apply !px-0 rounded-lg overflow-x-auto py-4
+  }
+   
+  pre [data-line] {
+    @apply px-4
+  }
+
+  code {
+    @apply text-sm md:text-base !leading-loose;
+  }
+  
+  pre > code {
+    counter-reset: line;
+  }
+  
+  code[data-theme*=" "],
+  code[data-theme*=" "] span {
+    color: var(--shiki-light);
+    background-color: var(--shiki-light-bg);
+  }
+   
+  @media (prefers-color-scheme: dark) {
+    code[data-theme*=" "],
+    code[data-theme*=" "] span {
+      color: var(--shiki-dark);
+      background-color: var(--shiki-dark-bg);
+    }
+  }
+  
+  code[data-line-numbers] {
+    counter-reset: line;
+  }
+  
+  code[data-line-numbers] > [data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    @apply inline-block w-4 mr-4 text-right text-gray-500;
+  }
+ 
+  code {
+    counter-reset: line;
+  }
+ 
+  code > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+ 
+  /* Other styling */
+  display: inline-block;
+  width: 1rem;
+  margin-right: 2rem;
+  text-align: right;
+  color: gray;
+}
+ 
+code[data-line-numbers-max-digits="2"] > [data-line]::before {
+  width: 2rem;
+}
+ 
+code[data-line-numbers-max-digits="3"] > [data-line]::before {
+  width: 3rem;
+}
+
+@keyframes border-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.profile-pic {
+  border: 2px solid transparent;
+  animation: border-pulse 2s infinite;
+  transition: transform 0.3s ease;
+}
+
+.profile-pic:hover {
+  transform: scale(1.05);
+}
+
+.profile-wrapper {
+  position: relative;
+  border-radius: 50%;
+  padding: 2px; 
+}
+
+.profile-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -2px; 
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(
+    45deg,
+    hsl(var(--muted-foreground)),
+    hsl(var(--foreground)) 45%,
+    hsl(var(--muted-foreground))
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotate 8s linear infinite;
+}
+
+.profile-wrapper:hover::before {
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Add these new styles */
+.text-mask {
+  position: relative;
+  mix-blend-mode: difference;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(
+    to right,
+    hsl(var(--foreground)),
+    hsl(var(--foreground))
+  );
+}
+
+.cloud-container {
+  position: relative;
+  isolation: isolate;
+}
+
+.mix-blend-overlay {
+  mix-blend-mode: overlay;
+  filter: contrast(1.2);
+}
+
+
+/* Marquee animations for testimonials */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Clean tweets - minimal CSS to avoid hiding everything */
+.clean-tweet time {
+  display: none !important;
+}
+
+/* Blog article - prevent overflow on mobile */
+.prose {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.prose pre {
+  max-width: 100%;
+}
+
+/* Blog article images - clickable with hover effect */
+.prose img {
+  max-width: 100%;
+  cursor: zoom-in;
+  border-radius: 0.75rem;
+  border: 1px solid hsl(var(--border) / 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.prose img:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+html,
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

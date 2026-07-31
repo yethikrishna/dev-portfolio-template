@@ -1,0 +1,92 @@
+---
+title: "Optimizing Core Web Vitals in 2026"
+publishedAt: "2026-03-10"
+summary: "LCP, INP, and CLS remain the key metrics for web performance. Here's how to optimize each one in modern Next.js applications."
+tags: ["performance", "seo", "nextjs"]
+---
+
+Core Web Vitals are Google's key metrics for measuring user experience. In 2026, the three metrics that matter are:
+
+1. **LCP (Largest Contentful Paint)** — loading performance
+2. **INP (Interaction to Next Paint)** — interactivity
+3. **CLS (Cumulative Layout Shift)** — visual stability
+
+## Optimizing LCP
+
+Target: under 2.5 seconds.
+
+```tsx
+import Image from 'next/image';
+
+// Use next/image for automatic optimization
+<Image
+  src="/hero.png"
+  alt="Hero"
+  width={1200}
+  height={630}
+  priority
+  placeholder="blur"
+/>
+```
+
+Key strategies:
+- Use `priority` for above-the-fold images
+- Preload critical fonts
+- Use `next/image` for automatic format conversion and resizing
+- Enable static generation where possible
+
+## Optimizing INP
+
+Target: under 200ms.
+
+INP replaced FID as the responsiveness metric. To optimize:
+
+- Minimize main thread blocking
+- Use `useTransition` for non-urgent updates
+- Split heavy computations with `requestIdleCallback`
+- Debounce scroll and resize handlers
+
+```tsx
+import { useTransition } from 'react';
+
+const [isPending, startTransition] = useTransition();
+
+const handleSearch = (query: string) => {
+  startTransition(() => {
+    setResults(filterResults(query));
+  });
+};
+```
+
+## Optimizing CLS
+
+Target: under 0.1.
+
+- Always specify width and height on images
+- Reserve space for ads and embeds
+- Avoid inserting content above existing content
+- Use CSS `aspect-ratio` for responsive media
+
+## Measuring
+
+Use these tools to measure your Core Web Vitals:
+
+- **Lighthouse** in Chrome DevTools
+- **PageSpeed Insights** for field data
+- **web-vitals** library for RUM
+
+```tsx
+import { onLCP, onINP, onCLS } from 'web-vitals';
+
+onLCP(console.log);
+onINP(console.log);
+onCLS(console.log);
+```
+
+## Conclusion
+
+This template is optimized for Core Web Vitals out of the box. With Next.js 15's built-in optimizations, you can achieve 95+ Lighthouse scores without additional configuration.
+
+---
+
+*Template by [Mynd Labs](https://myndlabs.tech) — optimized for performance by default.*
