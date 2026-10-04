@@ -396,7 +396,7 @@ export default function Page() {
                   MIT
                 </a>
               </p>
-              <p className="text-xs text-muted-foreground/40">
+              <p className="text-xs text-muted-foreground">
                 Template by{' '}
                 <a
                   href="https://myndlabs.tech"
