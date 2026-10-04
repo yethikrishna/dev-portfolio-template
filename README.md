@@ -1,5 +1,9 @@
 # Dev Portfolio Template
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yethikrishna/dev-portfolio-template&project-name=my-portfolio&repository-name=my-portfolio)
+
+**Live demo:** [portfolio.myndlabs.tech](https://portfolio.myndlabs.tech)
+
 A premium developer portfolio starter template built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion. Designed for developers, founders, and creatives who want a polished, production-ready personal website.
 
 **Template by [Mynd Labs](https://myndlabs.tech)**
