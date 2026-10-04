@@ -16,6 +16,8 @@ interface BlurFadeProps {
   inView?: boolean;
   inViewMargin?: string;
   blur?: string;
+  /** Above-the-fold content: animate with CSS so it never waits for JS hydration. */
+  eager?: boolean;
 }
 const BlurFade = ({
   children,
@@ -27,6 +29,7 @@ const BlurFade = ({
   inView = false,
   inViewMargin = "-50px",
   blur = "6px",
+  eager = false,
 }: BlurFadeProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const inViewResult = useInView(ref, { once: true, margin: inViewMargin as any });
@@ -36,6 +39,16 @@ const BlurFade = ({
     visible: { y: -yOffset, opacity: 1, filter: `blur(0px)` },
   };
   const combinedVariants = variant || defaultVariants;
+  if (eager) {
+    return (
+      <div
+        className={`hero-rise ${className ?? ""}`}
+        style={{ animationDelay: `${0.04 + delay}s` }}
+      >
+        {children}
+      </div>
+    );
+  }
   return (
     <AnimatePresence>
       <motion.div
