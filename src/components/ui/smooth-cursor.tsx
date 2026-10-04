@@ -18,7 +18,8 @@ export interface SmoothCursorProps {
   }
 }
 
-const DESKTOP_POINTER_QUERY = "(any-hover: hover) and (any-pointer: fine)"
+const DESKTOP_POINTER_QUERY =
+  "(any-hover: hover) and (any-pointer: fine) and (prefers-reduced-motion: no-preference)"
 
 function isTrackablePointer(pointerType: string) {
   return pointerType !== "touch"

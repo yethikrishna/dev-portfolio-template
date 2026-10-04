@@ -14,6 +14,10 @@ import { Icons } from "@/components/icons";
 import ShinyButton from "@/components/ui/shiny-button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlipAvatar } from "@/components/flip-avatar";
+import { FeatureBento } from "@/components/feature-bento";
+
+// Serve the avatar through the Next image optimizer (about 8 KB instead of 485 KB).
+const OPTIMIZED_AVATAR = `/_next/image?url=${encodeURIComponent(DATA.avatarUrl)}&w=384&q=80`;
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -54,7 +58,7 @@ export const metadata: Metadata = {
 
 function SectionLabel({ label }: { label: string }) {
   return (
-    <span className="inline-block text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
+    <span className="inline-block text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
       {label}
     </span>
   );
@@ -71,7 +75,7 @@ export default function Page() {
           <div className="mx-auto w-full space-y-8">
             <div className="flex flex-col-reverse items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex-col flex flex-1 space-y-1.5">
-                <BlurFade delay={BLUR_FADE_DELAY * 0.5}>
+                <BlurFade eager delay={BLUR_FADE_DELAY * 0.5}>
                   <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/60 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground backdrop-blur">
                     <span className="relative flex size-1.5">
                       <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500/70 motion-reduce:animate-none" />
@@ -80,19 +84,19 @@ export default function Page() {
                     Building at Mynd Labs
                   </span>
                 </BlurFade>
-                <BlurFadeText
+                <BlurFadeText eager
                   delay={BLUR_FADE_DELAY}
                   className="font-display text-5xl leading-[0.95] tracking-[-0.03em] sm:text-7xl xl:text-8xl"
                   yOffset={8}
                   text={`Hey, I'm ${DATA.name.split(" ")[0]}.`}
                   as="h1"
                 />
-                <BlurFadeText
+                <BlurFadeText eager
                   className="mt-3 max-w-[560px] text-base leading-relaxed text-muted-foreground md:text-xl"
                   delay={BLUR_FADE_DELAY * 1.5}
                   text={DATA.description}
                 />
-                <BlurFade delay={BLUR_FADE_DELAY * 2.2}>
+                <BlurFade eager delay={BLUR_FADE_DELAY * 2.2}>
                   <div className="mt-6 flex flex-wrap items-center gap-3">
                     <Link
                       href="/projects"
@@ -109,11 +113,11 @@ export default function Page() {
                   </div>
                 </BlurFade>
               </div>
-              <BlurFade delay={BLUR_FADE_DELAY}>
+              <BlurFade eager delay={BLUR_FADE_DELAY}>
                 <div className="profile-wrapper">
                   <FlipAvatar
-                    src={DATA.avatarUrl}
-                    hoverSrc={DATA.avatarUrl}
+                    src={OPTIMIZED_AVATAR}
+                    hoverSrc={OPTIMIZED_AVATAR}
                     alt={DATA.name}
                     fallback={DATA.initials}
                   />
@@ -122,7 +126,7 @@ export default function Page() {
             </div>
 
             {/* About */}
-            <BlurFade delay={BLUR_FADE_DELAY * 3}>
+            <BlurFade eager delay={BLUR_FADE_DELAY * 3}>
               <Markdown className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
                 {DATA.summary}
               </Markdown>
@@ -130,7 +134,7 @@ export default function Page() {
 
             {/* Social links */}
             <div className="inline-flex flex-col gap-3 items-start">
-              <BlurFade delay={BLUR_FADE_DELAY * 4.5}>
+              <BlurFade eager delay={BLUR_FADE_DELAY * 4.5}>
                 <div className="flex flex-wrap items-center gap-3">
                   {Object.entries(DATA.contact.social)
                     .filter(([_, social]) => social.navbar !== false)
@@ -158,6 +162,8 @@ export default function Page() {
           </div>
         </section>
 
+
+        <FeatureBento />
 
         {/* ─── SKILLS ─── */}
         <section id="skills">
@@ -311,7 +317,7 @@ export default function Page() {
                 className="inline-flex items-center gap-2.5 rounded-full border border-border/70 bg-background/70 px-5 py-2.5 text-sm font-medium shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-background"
               >
                 <Avatar className="size-6">
-                  <AvatarImage src={DATA.avatarUrl} alt={DATA.name} />
+                  <AvatarImage src={OPTIMIZED_AVATAR} alt={DATA.name} />
                   <AvatarFallback>{DATA.initials}</AvatarFallback>
                 </Avatar>
                 Let's talk
@@ -334,13 +340,13 @@ export default function Page() {
               </div>
 
               <div className="space-y-2">
-                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground/60">Links</p>
+                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Links</p>
                 <div className="flex flex-col gap-1.5">
                   {DATA.navbar.slice(1).map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="text-xs text-muted-foreground hover:text-foreground transition-colors w-fit"
+                      className="inline-flex min-h-6 items-center py-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit"
                     >
                       {item.label}
                     </Link>
@@ -349,19 +355,19 @@ export default function Page() {
               </div>
 
               <div className="space-y-2">
-                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground/60">Meta</p>
+                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Meta</p>
                 <div className="flex flex-col gap-1.5">
-                  <Link href="/sitemap.xml" className="text-xs text-muted-foreground hover:text-foreground transition-colors w-fit">
+                  <Link href="/sitemap.xml" className="inline-flex min-h-6 items-center py-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit">
                     Sitemap
                   </Link>
-                  <Link href="/rss.xml" className="text-xs text-muted-foreground hover:text-foreground transition-colors w-fit">
+                  <Link href="/rss.xml" className="inline-flex min-h-6 items-center py-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit">
                     RSS Feed
                   </Link>
                   <a
                     href="https://github.com/myndlabs/dev-portfolio-template"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors w-fit"
+                    className="inline-flex min-h-6 items-center py-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit"
                   >
                     Source Code
                   </a>
@@ -370,7 +376,7 @@ export default function Page() {
             </div>
 
             <div className="mt-8 flex flex-col gap-3 border-t border-border/30 pt-6 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-xs text-muted-foreground/60">
+              <p className="text-xs text-muted-foreground">
                 © {new Date().getFullYear()} {DATA.name}. Built with{' '}
                 <a
                   href="https://myndlabs.tech"
@@ -390,7 +396,7 @@ export default function Page() {
                   MIT
                 </a>
               </p>
-              <p className="text-xs text-muted-foreground/40">
+              <p className="text-xs text-muted-foreground">
                 Template by{' '}
                 <a
                   href="https://myndlabs.tech"

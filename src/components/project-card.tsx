@@ -52,6 +52,7 @@ export function ProjectCard({
       >
         <Link
           href={href || "#"}
+          aria-label={`${title} - open project`}
           className="block cursor-pointer relative overflow-hidden"
         >
           {image && (
@@ -114,7 +115,7 @@ export function ProjectCard({
           duration={4}
           size={300}
           reverse
-          className="from-transparent via-green-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          className="from-transparent via-foreground/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         />
       </Card>
     </>

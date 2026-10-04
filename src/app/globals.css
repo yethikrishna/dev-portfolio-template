@@ -343,18 +343,6 @@ html {
   border-radius: 6px;
 }
 
-/* Subtle film grain for depth. Decorative only. */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.dark body::after { opacity: 0.06; }
-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
@@ -363,3 +351,63 @@ body::after {
     scroll-behavior: auto !important;
   }
 }
+
+/* Skip layout and paint work for sections that start below the fold. */
+main section:not(#hero),
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 560px;
+}
+
+/* Hero entrance that runs on CSS alone, so first paint never waits for JS. */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(8px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+.hero-rise {
+  animation: hero-rise 0.5s ease-out both;
+}
+
+/* Pure CSS meteors: no JS, no canvas, no assets. Monochrome (follows the
+   foreground color), transform and opacity only, hidden for reduced motion. */
+@keyframes meteor-fall {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-45deg); }
+  4% { opacity: 1; }
+  26% { opacity: 0; transform: translate3d(-620px, 620px, 0) rotate(-45deg); }
+  100% { opacity: 0; transform: translate3d(-620px, 620px, 0) rotate(-45deg); }
+}
+.meteor {
+  position: absolute;
+  top: -90px;
+  width: 90px;
+  height: 1px;
+  opacity: 0;
+  background: linear-gradient(to left, transparent, currentColor);
+  animation: meteor-fall 11s linear infinite;
+  will-change: transform, opacity;
+}
+.meteor::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: currentColor;
+}
+@media (prefers-reduced-motion: reduce) {
+  .meteor { display: none; }
+}
+
+/* Static film grain for depth: one fixed layer, no animation, decorative only. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.dark body::after { opacity: 0.05; }
