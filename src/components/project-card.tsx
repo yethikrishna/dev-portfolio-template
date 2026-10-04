@@ -29,6 +29,7 @@ interface Props {
     href: string;
   }[];
   className?: string;
+  headingLevel?: "h2" | "h3";
 }
 
 export function ProjectCard({
@@ -41,6 +42,7 @@ export function ProjectCard({
   image,
   links,
   className,
+  headingLevel = "h3",
 }: Props) {
   return (
     <>
@@ -50,6 +52,7 @@ export function ProjectCard({
           className
         )}
       >
+        {image && (
         <Link
           href={href || "#"}
           aria-label={`${title} - open project`}
@@ -65,10 +68,11 @@ export function ProjectCard({
             />
           )}
         </Link>
+        )}
         <CardHeader className="px-4 pt-4">
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-base font-semibold">{title}</CardTitle>
+              <CardTitle as={headingLevel} className="text-base font-semibold">{title}</CardTitle>
               {href && (
                 <ExternalLink className="size-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
               )}
@@ -101,7 +105,7 @@ export function ProjectCard({
           {links && links.length > 0 && (
             <div className="flex flex-row flex-wrap items-start gap-1">
               {links?.map((link, idx) => (
-                <Link href={link?.href} key={idx} target="_blank">
+                <Link href={link?.href} key={idx} target="_blank" className="inline-flex min-h-6 items-center">
                   <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
                     {link.icon}
                     {link.type}
