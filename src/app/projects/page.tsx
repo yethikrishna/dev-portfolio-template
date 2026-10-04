@@ -44,7 +44,7 @@ export default function ProjectsPage() {
                 reverse
                 className="from-transparent via-foreground/40 to-transparent"
               />
-              <ProjectCard {...project} />
+              <ProjectCard {...project} headingLevel="h2" />
             </div>
           </BlurFade>
         ))}
