@@ -9,10 +9,15 @@ import "./globals.css";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { JsonLd } from "@/components/json-ld";
 import { PageBackground } from "@/components/page-background";
-import { CommandPalette } from "@/components/command-palette";
+import dynamic from "next/dynamic";
+
+// Loaded after first paint: keeps the command palette (and its dialog code) off the critical path.
+const CommandPalette = dynamic(
+  () => import("@/components/command-palette").then((m) => m.CommandPalette),
+  { ssr: false }
+);
 import { SoundProvider } from "@/components/sound-provider";
 import { BackToTop } from "@/components/back-to-top";
-import { SmoothCursor } from "@/components/ui/smooth-cursor";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -153,7 +158,6 @@ export default function RootLayout({
                 <Navbar />
                 <CommandPalette />
                 <BackToTop />
-                <SmoothCursor />
               </TooltipProvider>
             </SoundProvider>
           </ThemeProvider>
