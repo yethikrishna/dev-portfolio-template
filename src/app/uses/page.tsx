@@ -128,7 +128,7 @@ export default function UsesPage() {
                   {tool.description}
                 </p>
               </div>
-              <ArrowUpRight className="size-4 shrink-0 mt-0.5 text-muted-foreground/40 group-hover:text-foreground transition-colors" />
+              <ArrowUpRight className="size-4 shrink-0 mt-0.5 text-muted-foreground group-hover:text-foreground transition-colors" />
             </a>
           </BlurFade>
         ))}
