@@ -71,18 +71,43 @@ export default function Page() {
           <div className="mx-auto w-full space-y-8">
             <div className="flex flex-col-reverse items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex-col flex flex-1 space-y-1.5">
+                <BlurFade delay={BLUR_FADE_DELAY * 0.5}>
+                  <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/60 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground backdrop-blur">
+                    <span className="relative flex size-1.5">
+                      <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500/70 motion-reduce:animate-none" />
+                      <span className="relative inline-flex size-1.5 rounded-full bg-emerald-500" />
+                    </span>
+                    Building at Mynd Labs
+                  </span>
+                </BlurFade>
                 <BlurFadeText
                   delay={BLUR_FADE_DELAY}
-                  className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
+                  className="font-display text-5xl leading-[0.95] tracking-[-0.03em] sm:text-7xl xl:text-8xl"
                   yOffset={8}
-                  text={`hey, ${DATA.name.split(" ")[0]} here`}
+                  text={`Hey, I'm ${DATA.name.split(" ")[0]}.`}
                   as="h1"
                 />
                 <BlurFadeText
-                  className="max-w-[600px] text-muted-foreground md:text-xl"
+                  className="mt-3 max-w-[560px] text-base leading-relaxed text-muted-foreground md:text-xl"
                   delay={BLUR_FADE_DELAY * 1.5}
                   text={DATA.description}
                 />
+                <BlurFade delay={BLUR_FADE_DELAY * 2.2}>
+                  <div className="mt-6 flex flex-wrap items-center gap-3">
+                    <Link
+                      href="/projects"
+                      className="inline-flex h-11 items-center rounded-full bg-foreground px-6 text-sm font-medium text-background transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    >
+                      View projects
+                    </Link>
+                    <Link
+                      href="/blog"
+                      className="inline-flex h-11 items-center rounded-full border border-border bg-card/50 px-6 text-sm font-medium transition-colors duration-200 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    >
+                      Read the blog
+                    </Link>
+                  </div>
+                </BlurFade>
               </div>
               <BlurFade delay={BLUR_FADE_DELAY}>
                 <div className="profile-wrapper">
