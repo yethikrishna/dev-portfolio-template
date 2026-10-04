@@ -19,6 +19,12 @@ const CommandPalette = dynamic(
 import { SoundProvider } from "@/components/sound-provider";
 import { BackToTop } from "@/components/back-to-top";
 
+// Desktop fine-pointer only, and loaded after first paint so it never touches LCP.
+const SmoothCursor = dynamic(
+  () => import("@/components/ui/smooth-cursor").then((m) => m.SmoothCursor),
+  { ssr: false }
+);
+
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -158,6 +164,7 @@ export default function RootLayout({
                 <Navbar />
                 <CommandPalette />
                 <BackToTop />
+                <SmoothCursor />
               </TooltipProvider>
             </SoundProvider>
           </ThemeProvider>
