@@ -3,17 +3,22 @@
 
 import { motion, useScroll, useSpring } from "framer-motion";
 
+/**
+ * Reading-progress line. Uses the theme foreground so it stays
+ * monochrome and follows light/dark automatically (ink on paper).
+ */
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
+    stiffness: 120,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 origin-left z-[60]"
+      aria-hidden="true"
+      className="fixed left-0 right-0 top-0 z-[60] h-[2px] origin-left bg-foreground/90"
       style={{ scaleX }}
     />
   );
