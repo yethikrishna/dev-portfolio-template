@@ -16,6 +16,8 @@ interface BlurFadeTextProps {
   delay?: number;
   yOffset?: number;
   animateByCharacter?: boolean;
+  /** Above-the-fold text: animate with CSS so it never waits for JS hydration. */
+  eager?: boolean;
   as?: "h1" | "h2" | "h3" | "p" | "span" | "div";
 }
 const BlurFadeText = ({
@@ -26,6 +28,7 @@ const BlurFadeText = ({
   delay = 0,
   yOffset = 8,
   animateByCharacter = false,
+  eager = false,
   as,
 }: BlurFadeTextProps) => {
   const defaultVariants: Variants = {
@@ -64,6 +67,19 @@ const BlurFadeText = ({
   }
 
   const Wrapper = as || "div";
+
+  if (eager) {
+    return (
+      <Wrapper className="flex">
+        <span
+          className={cn("hero-rise inline-block", className)}
+          style={{ animationDelay: `${delay}s` }}
+        >
+          {text}
+        </span>
+      </Wrapper>
+    );
+  }
 
   return (
     <Wrapper className="flex">
