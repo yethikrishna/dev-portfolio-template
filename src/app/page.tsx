@@ -75,7 +75,7 @@ export default function Page() {
           <div className="mx-auto w-full space-y-8">
             <div className="flex flex-col-reverse items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex-col flex flex-1 space-y-1.5">
-                <BlurFade delay={BLUR_FADE_DELAY * 0.5}>
+                <BlurFade eager delay={BLUR_FADE_DELAY * 0.5}>
                   <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/60 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground backdrop-blur">
                     <span className="relative flex size-1.5">
                       <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500/70 motion-reduce:animate-none" />
@@ -84,19 +84,19 @@ export default function Page() {
                     Building at Mynd Labs
                   </span>
                 </BlurFade>
-                <BlurFadeText
+                <BlurFadeText eager
                   delay={BLUR_FADE_DELAY}
                   className="font-display text-5xl leading-[0.95] tracking-[-0.03em] sm:text-7xl xl:text-8xl"
                   yOffset={8}
                   text={`Hey, I'm ${DATA.name.split(" ")[0]}.`}
                   as="h1"
                 />
-                <BlurFadeText
+                <BlurFadeText eager
                   className="mt-3 max-w-[560px] text-base leading-relaxed text-muted-foreground md:text-xl"
                   delay={BLUR_FADE_DELAY * 1.5}
                   text={DATA.description}
                 />
-                <BlurFade delay={BLUR_FADE_DELAY * 2.2}>
+                <BlurFade eager delay={BLUR_FADE_DELAY * 2.2}>
                   <div className="mt-6 flex flex-wrap items-center gap-3">
                     <Link
                       href="/projects"
@@ -113,7 +113,7 @@ export default function Page() {
                   </div>
                 </BlurFade>
               </div>
-              <BlurFade delay={BLUR_FADE_DELAY}>
+              <BlurFade eager delay={BLUR_FADE_DELAY}>
                 <div className="profile-wrapper">
                   <FlipAvatar
                     src={OPTIMIZED_AVATAR}
@@ -126,7 +126,7 @@ export default function Page() {
             </div>
 
             {/* About */}
-            <BlurFade delay={BLUR_FADE_DELAY * 3}>
+            <BlurFade eager delay={BLUR_FADE_DELAY * 3}>
               <Markdown className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
                 {DATA.summary}
               </Markdown>
@@ -134,7 +134,7 @@ export default function Page() {
 
             {/* Social links */}
             <div className="inline-flex flex-col gap-3 items-start">
-              <BlurFade delay={BLUR_FADE_DELAY * 4.5}>
+              <BlurFade eager delay={BLUR_FADE_DELAY * 4.5}>
                 <div className="flex flex-wrap items-center gap-3">
                   {Object.entries(DATA.contact.social)
                     .filter(([_, social]) => social.navbar !== false)
