@@ -16,6 +16,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlipAvatar } from "@/components/flip-avatar";
 import { FeatureBento } from "@/components/feature-bento";
 
+// Serve the avatar through the Next image optimizer (about 8 KB instead of 485 KB).
+const OPTIMIZED_AVATAR = `/_next/image?url=${encodeURIComponent(DATA.avatarUrl)}&w=384&q=80`;
+
 const BLUR_FADE_DELAY = 0.04;
 
 // Brand hover colors for social icons; others fall back to foreground
@@ -113,8 +116,8 @@ export default function Page() {
               <BlurFade delay={BLUR_FADE_DELAY}>
                 <div className="profile-wrapper">
                   <FlipAvatar
-                    src={DATA.avatarUrl}
-                    hoverSrc={DATA.avatarUrl}
+                    src={OPTIMIZED_AVATAR}
+                    hoverSrc={OPTIMIZED_AVATAR}
                     alt={DATA.name}
                     fallback={DATA.initials}
                   />
@@ -314,7 +317,7 @@ export default function Page() {
                 className="inline-flex items-center gap-2.5 rounded-full border border-border/70 bg-background/70 px-5 py-2.5 text-sm font-medium shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-background"
               >
                 <Avatar className="size-6">
-                  <AvatarImage src={DATA.avatarUrl} alt={DATA.name} />
+                  <AvatarImage src={OPTIMIZED_AVATAR} alt={DATA.name} />
                   <AvatarFallback>{DATA.initials}</AvatarFallback>
                 </Avatar>
                 Let's talk
