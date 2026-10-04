@@ -55,7 +55,7 @@ export const metadata: Metadata = {
 
 function SectionLabel({ label }: { label: string }) {
   return (
-    <span className="inline-block text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
+    <span className="inline-block text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
       {label}
     </span>
   );
@@ -337,13 +337,13 @@ export default function Page() {
               </div>
 
               <div className="space-y-2">
-                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground/60">Links</p>
+                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Links</p>
                 <div className="flex flex-col gap-1.5">
                   {DATA.navbar.slice(1).map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="text-xs text-muted-foreground hover:text-foreground transition-colors w-fit"
+                      className="inline-flex min-h-6 items-center py-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit"
                     >
                       {item.label}
                     </Link>
@@ -352,19 +352,19 @@ export default function Page() {
               </div>
 
               <div className="space-y-2">
-                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground/60">Meta</p>
+                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Meta</p>
                 <div className="flex flex-col gap-1.5">
-                  <Link href="/sitemap.xml" className="text-xs text-muted-foreground hover:text-foreground transition-colors w-fit">
+                  <Link href="/sitemap.xml" className="inline-flex min-h-6 items-center py-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit">
                     Sitemap
                   </Link>
-                  <Link href="/rss.xml" className="text-xs text-muted-foreground hover:text-foreground transition-colors w-fit">
+                  <Link href="/rss.xml" className="inline-flex min-h-6 items-center py-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit">
                     RSS Feed
                   </Link>
                   <a
                     href="https://github.com/myndlabs/dev-portfolio-template"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors w-fit"
+                    className="inline-flex min-h-6 items-center py-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit"
                   >
                     Source Code
                   </a>
@@ -373,7 +373,7 @@ export default function Page() {
             </div>
 
             <div className="mt-8 flex flex-col gap-3 border-t border-border/30 pt-6 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-xs text-muted-foreground/60">
+              <p className="text-xs text-muted-foreground">
                 © {new Date().getFullYear()} {DATA.name}. Built with{' '}
                 <a
                   href="https://myndlabs.tech"
