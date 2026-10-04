@@ -39,7 +39,7 @@ export function FeatureBento() {
       <div className="flex flex-col gap-y-6">
         <BlurFade delay={BLUR_FADE_DELAY * 7}>
           <div className="space-y-2">
-            <span className="inline-block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
+            <span className="inline-block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
               What is inside
             </span>
             <h2
@@ -59,7 +59,7 @@ export function FeatureBento() {
             >
               <article className="group relative h-full overflow-hidden rounded-2xl border border-border/60 bg-card/40 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-border hover:bg-card/80 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0">
                 <div className="flex items-start justify-between gap-4">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground/70">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                     {f.kicker}
                   </span>
                   <span className="rounded-full border border-border/70 px-2 py-0.5 font-mono text-[10px] text-muted-foreground">
