@@ -14,6 +14,7 @@ import { Icons } from "@/components/icons";
 import ShinyButton from "@/components/ui/shiny-button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlipAvatar } from "@/components/flip-avatar";
+import { FeatureBento } from "@/components/feature-bento";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -158,6 +159,8 @@ export default function Page() {
           </div>
         </section>
 
+
+        <FeatureBento />
 
         {/* ─── SKILLS ─── */}
         <section id="skills">
