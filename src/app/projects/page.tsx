@@ -42,7 +42,7 @@ export default function ProjectsPage() {
                 duration={4}
                 size={300}
                 reverse
-                className="from-transparent via-purple-500 to-transparent"
+                className="from-transparent via-foreground/40 to-transparent"
               />
               <ProjectCard {...project} />
             </div>
