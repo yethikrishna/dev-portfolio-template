@@ -13,6 +13,25 @@ interface FlipAvatarProps {
 export function FlipAvatar({ src, hoverSrc, alt, fallback }: FlipAvatarProps) {
   const [flipped, setFlipped] = useState(false);
 
+  // Same image on both faces: skip the 3D flip and render a plain <img> that is
+  // in the server HTML (the Radix avatar only mounts its image after hydration).
+  if (src === hoverSrc) {
+    return (
+      <div className="relative size-28 shrink-0 overflow-hidden rounded-full">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt={alt}
+          width={224}
+          height={224}
+          fetchPriority="high"
+          decoding="async"
+          className="size-full object-cover"
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className="size-28 [perspective:600px] cursor-pointer"
