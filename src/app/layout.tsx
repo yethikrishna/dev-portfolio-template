@@ -33,13 +33,14 @@ const fontSans = FontSans({
 const fontDisplay = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
-  style: ["normal", "italic"],
+  style: ["normal"],
   variable: "--font-display",
 });
 
 const fontMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  preload: false,
 });
 
 export const metadata: Metadata = {
