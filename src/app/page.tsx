@@ -11,7 +11,6 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { PersonSchema } from "@/components/schema/person-schema";
 import { Metadata } from 'next';
 import { Icons } from "@/components/icons";
-import ShinyButton from "@/components/ui/shiny-button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlipAvatar } from "@/components/flip-avatar";
 import { FeatureBento } from "@/components/feature-bento";
@@ -98,13 +97,13 @@ export default function Page() {
                 />
                 <BlurFade eager delay={BLUR_FADE_DELAY * 2.2}>
                   <div className="mt-6 flex flex-wrap items-center gap-3">
-                    <Link
+                    <Link prefetch={false}
                       href="/projects"
                       className="inline-flex h-11 items-center rounded-full bg-foreground px-6 text-sm font-medium text-background transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                     >
                       View projects
                     </Link>
-                    <Link
+                    <Link prefetch={false}
                       href="/blog"
                       className="inline-flex h-11 items-center rounded-full border border-border bg-card/50 px-6 text-sm font-medium transition-colors duration-200 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                     >
@@ -216,15 +215,11 @@ export default function Page() {
                     </div>
                   ))}
               </div>
-              <Link
+              <Link prefetch={false}
                 href="/projects"
-                className="mt-4 block"
+                className="mt-4 inline-flex min-h-11 items-center justify-center rounded-lg border border-border bg-card px-6 py-3 text-sm font-semibold transition-colors hover:bg-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               >
-                <ShinyButton
-                  className="w-full sm:w-auto group transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] font-semibold"
-                >
                   View All Projects →
-                </ShinyButton>
               </Link>
             </BlurFade>
           </div>
@@ -343,7 +338,7 @@ export default function Page() {
                 <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Links</p>
                 <div className="flex flex-col gap-1.5">
                   {DATA.navbar.slice(1).map((item) => (
-                    <Link
+                    <Link prefetch={false}
                       key={item.href}
                       href={item.href}
                       className="inline-flex min-h-6 items-center py-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit"
@@ -357,10 +352,10 @@ export default function Page() {
               <div className="space-y-2">
                 <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Meta</p>
                 <div className="flex flex-col gap-1.5">
-                  <Link href="/sitemap.xml" className="inline-flex min-h-6 items-center py-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit">
+                  <Link prefetch={false} href="/sitemap.xml" className="inline-flex min-h-6 items-center py-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit">
                     Sitemap
                   </Link>
-                  <Link href="/rss.xml" className="inline-flex min-h-6 items-center py-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit">
+                  <Link prefetch={false} href="/rss.xml" className="inline-flex min-h-6 items-center py-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-fit">
                     RSS Feed
                   </Link>
                   <a
