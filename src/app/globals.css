@@ -352,21 +352,13 @@ html {
   }
 }
 
-/* Skip layout and paint work for sections that start below the fold. */
-main section:not(#hero),
-footer {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 560px;
-}
-
-/* Hero entrance that runs on CSS alone, so first paint never waits for JS. */
+/* Keep real document geometry for keyboard focus and touch-target spacing.
+   Hero content is visible at first paint, even before hydration. */
 @keyframes hero-rise {
-  from { opacity: 0.01; transform: translateY(8px); }
-  to { opacity: 1; transform: none; }
+  from { transform: translateY(6px); }
+  to { transform: none; }
 }
-.hero-rise {
-  animation: hero-rise 0.5s ease-out both;
-}
+.hero-rise { animation: hero-rise 0.35s ease-out; }
 
 /* Pure CSS meteors: no JS, no canvas, no assets. Monochrome (follows the
    foreground color), transform and opacity only, hidden for reduced motion. */
@@ -411,3 +403,11 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 .dark body::after { opacity: 0.05; }
+
+/* Mobile content paints in its final position, without entrance delays. */
+@media (max-width: 767px) {
+  .hero-rise { animation: none; }
+}
+
+/* Anchor jumps and keyboard navigation leave room for the fixed header. */
+main section[id] { scroll-margin-top: 5.5rem; }
