@@ -1,106 +1,18 @@
-"use client";
-
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion, Variants } from "framer-motion";
-import { useMemo } from "react";
 
 interface BlurFadeTextProps {
   text: string;
   className?: string;
-  variant?: {
-    hidden: { y: number };
-    visible: { y: number };
-  };
+  variant?: { hidden: { y: number }; visible: { y: number } };
   duration?: number;
   characterDelay?: number;
   delay?: number;
   yOffset?: number;
   animateByCharacter?: boolean;
-  /** Above-the-fold text: animate with CSS so it never waits for JS hydration. */
   eager?: boolean;
   as?: "h1" | "h2" | "h3" | "p" | "span" | "div";
 }
-const BlurFadeText = ({
-  text,
-  className,
-  variant,
-  characterDelay = 0.03,
-  delay = 0,
-  yOffset = 8,
-  animateByCharacter = false,
-  eager = false,
-  as,
-}: BlurFadeTextProps) => {
-  const defaultVariants: Variants = {
-    hidden: { y: yOffset, opacity: 0, filter: "blur(8px)" },
-    visible: { y: -yOffset, opacity: 1, filter: "blur(0px)" },
-  };
-  const combinedVariants = variant || defaultVariants;
-  const characters = useMemo(() => Array.from(text), [text]);
 
-  if (animateByCharacter) {
-    return (
-      <div className="flex" aria-label={text}>
-        <AnimatePresence>
-          {characters.map((char, i) => (
-            <motion.span
-              aria-hidden="true"
-              key={i}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              variants={combinedVariants}
-              transition={{
-                yoyo: Infinity,
-                delay: delay + i * characterDelay,
-                ease: "easeOut",
-              }}
-              className={cn("inline-block", className)}
-              style={{ width: char.trim() === "" ? "0.2em" : "auto" }}
-            >
-              {char}
-            </motion.span>
-          ))}
-        </AnimatePresence>
-      </div>
-    );
-  }
-
-  const Wrapper = as || "div";
-
-  if (eager) {
-    return (
-      <Wrapper className="flex">
-        <span
-          className={cn("hero-rise inline-block", className)}
-          style={{ animationDelay: `${delay}s` }}
-        >
-          {text}
-        </span>
-      </Wrapper>
-    );
-  }
-
-  return (
-    <Wrapper className="flex">
-      <AnimatePresence>
-        <motion.span
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          variants={combinedVariants}
-          transition={{
-            yoyo: Infinity,
-            delay,
-            ease: "easeOut",
-          }}
-          className={cn("inline-block", className)}
-        >
-          {text}
-        </motion.span>
-      </AnimatePresence>
-    </Wrapper>
-  );
-};
-
-export default BlurFadeText;
+export default function BlurFadeText({ text, className, as: Wrapper = "div" }: BlurFadeTextProps) {
+  return <Wrapper className={cn("hero-rise", className)}>{text}</Wrapper>;
+}
