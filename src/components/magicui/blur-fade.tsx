@@ -1,73 +1,24 @@
-"use client";
-
-import { AnimatePresence, motion, useInView, Variants } from "framer-motion";
-import { useRef } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 interface BlurFadeProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
-  variant?: {
-    hidden: { y: number };
-    visible: { y: number };
-  };
+  variant?: { hidden: { y: number }; visible: { y: number } };
   duration?: number;
   delay?: number;
   yOffset?: number;
   inView?: boolean;
   inViewMargin?: string;
   blur?: string;
-  /** Above-the-fold content: animate with CSS so it never waits for JS hydration. */
   eager?: boolean;
 }
-const BlurFade = ({
-  children,
-  className,
-  variant,
-  duration = 0.4,
-  delay = 0,
-  yOffset = 6,
-  inView = false,
-  inViewMargin = "-50px",
-  blur = "6px",
-  eager = false,
-}: BlurFadeProps) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const inViewResult = useInView(ref, { once: true, margin: inViewMargin as any });
-  const isInView = !inView || inViewResult;
-  const defaultVariants: Variants = {
-    hidden: { y: yOffset, opacity: 0, filter: `blur(${blur})` },
-    visible: { y: -yOffset, opacity: 1, filter: `blur(0px)` },
-  };
-  const combinedVariants = variant || defaultVariants;
-  if (eager) {
-    return (
-      <div
-        className={`hero-rise ${className ?? ""}`}
-        style={{ animationDelay: `${0.04 + delay}s` }}
-      >
-        {children}
-      </div>
-    );
-  }
-  return (
-    <AnimatePresence>
-      <motion.div
-        ref={ref}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        exit="hidden"
-        variants={combinedVariants}
-        transition={{
-          delay: 0.04 + delay,
-          duration,
-          ease: "easeOut",
-        }}
-        className={className}
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
-  );
-};
 
-export default BlurFade;
+// Content stays visible in server HTML. CSS handles the small entrance motion,
+// without one JS animation/observer per card or opacity-gated text.
+export default function BlurFade({ children, className, duration = 0.35, delay = 0 }: BlurFadeProps) {
+  return (
+    <div className={`hero-rise ${className ?? ""}`} style={{ animationDuration: `${duration}s`, animationDelay: `${delay}s` } as CSSProperties}>
+      {children}
+    </div>
+  );
+}
