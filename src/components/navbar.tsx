@@ -1,7 +1,7 @@
 "use client";
 
 import { ModeToggle } from "@/components/mode-toggle";
-import { DATA } from "@/data/resume";
+import { NAVBAR } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -40,7 +40,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (isScrolled) return;
-    const navItems = DATA.navbar.slice(1);
+    const navItems = NAVBAR.slice(1);
     const activeIndex = navItems.findIndex((item) => item.href === pathname);
     if (activeIndex !== -1 && itemRefs.current[activeIndex] && navRef.current) {
       const itemEl = itemRefs.current[activeIndex]!;
@@ -60,7 +60,7 @@ export default function Navbar() {
     return null;
   }
 
-  const navItems = DATA.navbar.slice(1);
+  const navItems = NAVBAR.slice(1);
 
   return (
     <>
@@ -68,7 +68,7 @@ export default function Navbar() {
       <AnimatePresence>
         {!isScrolled && (
           <motion.nav
-            initial={isMounted ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
+            initial={false}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -205,7 +205,7 @@ export default function Navbar() {
                     className="relative z-50 mx-4 mt-2 overflow-hidden rounded-2xl border border-border/40 bg-background/95 shadow-lg backdrop-blur-xl md:hidden"
                   >
                     <div className="p-2">
-                      {DATA.navbar.map((item, index) => {
+                      {NAVBAR.map((item, index) => {
                         const isActive = pathname === item.href;
                         return (
                           <motion.div
@@ -233,7 +233,7 @@ export default function Navbar() {
                       <motion.div
                         initial={{ opacity: 0, x: -12 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: DATA.navbar.length * 0.04, duration: 0.2 }}
+                        transition={{ delay: NAVBAR.length * 0.04, duration: 0.2 }}
                       >
                         <Link
                           href="/cli"
@@ -267,7 +267,7 @@ export default function Navbar() {
               distance={120}
               className="border border-white/20 bg-background/30 dark:border-white/10 dark:bg-background/20"
             >
-              {DATA.navbar.map((item) => (
+              {NAVBAR.map((item) => (
                 <DockIcon key={item.href}>
                   <Tooltip>
                     <TooltipTrigger asChild>

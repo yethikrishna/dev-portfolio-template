@@ -1,5 +1,3 @@
-"use client";
-
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -12,7 +10,6 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import Markdown from "react-markdown";
-import { BorderBeam } from "@/components/magicui/border-beam";
 import { ExternalLink } from "lucide-react";
 
 interface Props {
@@ -53,7 +50,7 @@ export function ProjectCard({
         )}
       >
         {image && (
-        <Link
+        <Link prefetch={false}
           href={href || "#"}
           aria-label={`${title} - open project`}
           className="block cursor-pointer relative overflow-hidden"
@@ -105,7 +102,7 @@ export function ProjectCard({
           {links && links.length > 0 && (
             <div className="flex flex-row flex-wrap items-start gap-1">
               {links?.map((link, idx) => (
-                <Link href={link?.href} key={idx} target="_blank" className="inline-flex min-h-6 items-center">
+                <Link prefetch={false} href={link?.href} key={idx} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center rounded-md px-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
                   <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
                     {link.icon}
                     {link.type}
@@ -115,12 +112,6 @@ export function ProjectCard({
             </div>
           )}
         </CardFooter>
-        <BorderBeam
-          duration={4}
-          size={300}
-          reverse
-          className="from-transparent via-foreground/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        />
       </Card>
     </>
   );
